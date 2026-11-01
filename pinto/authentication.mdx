@@ -1,0 +1,88 @@
+---
+title: "Authentication and sessions"
+sidebarTitle: "Authentication"
+description: "Use your own Pinterest cookies with Pinto, and save, restore, and isolate sessions."
+---
+
+Anonymous reads work immediately. A logged-in session gets its own per-account quota and looks like an ordinary browser.
+
+## Use your cookies
+
+<Steps>
+  <Step title="Log in">
+    Log into pinterest.com in your own browser.
+  </Step>
+  <Step title="Copy the Cookie header">
+    In DevTools, open **Network** and copy any request's `Cookie` header value.
+  </Step>
+  <Step title="Pass it to Pinto">
+    ```ts
+    const pinto = createPinto();
+    await pinto.setCookies("_pinterest_sess=...; csrftoken=...; ...");
+    
+    console.log(pinto.isAuthenticated()); // true
+    ```
+  </Step>
+</Steps>
+
+<Warning>
+  Treat cookies like passwords. Never commit them, never expose them to end users, and store them encrypted server-side.
+</Warning>
+
+## Save and restore sessions
+
+Persist the session so credentials survive restarts with `useFileSession`. It's also a good guide for writing a Redis or Postgres store.
+
+```ts
+import { createPinto, useFileSession } from "@traceryn/pinto";
+
+const { state, saveSession } = await useFileSession("./.pinto-session");
+
+const pinto = createPinto({
+  session: state,
+  saveSession: (s) => saveSession(s), // called after cookies change
+});
+```
+
+For tests and short-lived jobs, use an in-memory session:
+
+```ts
+import { createPinto, useMemorySession } from "@traceryn/pinto";
+
+const { state, saveSession } = useMemorySession();
+const pinto = createPinto({ session: state, saveSession });
+```
+
+## Multi-tenant clients
+
+Every client is fully isolated. Device fingerprint, rate budget, cache namespace, cookies, and `fetch` all hang off the session object.
+
+```ts
+function clientForUser(user) {
+  return createPinto({
+    session: user.pintoSession,
+    saveSession: (s) => db.save(user.id, s),
+  });
+}
+```
+
+## Cookie import formats
+
+`importCookies` auto-detects the format you paste.
+
+```ts
+import { createEmptySession, importCookies } from "@traceryn/pinto";
+import { readFile } from "node:fs/promises";
+
+const session = createEmptySession();
+
+// 1. Raw Cookie header (DevTools -> Network -> copy "Cookie" value).
+//    Handles quotes, %-encoding, and ";" inside JSON values (g_state).
+importCookies(session, "csrftoken=...; _pinterest_sess=...; g_state={...}");
+
+// 2. Browser-extension JSON array: [{ name, value, domain, ... }, ...]
+importCookies(session, extensionExportJson);
+
+// 3. cookies.txt (Netscape / curl format, tab-separated).
+importCookies(session, await readFile("./cookies.txt", "utf8"));
+```

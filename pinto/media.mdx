@@ -1,0 +1,58 @@
+---
+title: "Downloading media"
+sidebarTitle: "Media"
+description: "Download pin images and videos with Pinto and detect their file format."
+---
+
+Media downloads reuse the same session (device fingerprint, cookies, custom `fetch`), so the whole client egresses from one identity.
+
+## Download bytes
+
+```ts
+import { downloadPinImage, downloadPinVideo } from "@traceryn/pinto";
+import { writeFile } from "node:fs/promises";
+
+const imageBytes = await downloadPinImage(pinto.session, pin.url);
+await writeFile("pin.jpg", imageBytes);
+
+const videoBytes = await downloadPinVideo(pinto.session, videoPin.url);
+await writeFile("pin.mp4", videoBytes);
+```
+
+## Download with format
+
+Get the format alongside the bytes so you can name files correctly.
+
+```ts
+import { downloadImageWithFormat, filenameForPin } from "@traceryn/pinto";
+
+const asset = await downloadImageWithFormat(pinto.session, pin.url);
+asset.bytes;       // Buffer
+asset.contentType; // "image/jpeg"
+asset.format;      // "jpg"
+
+const name = filenameForPin(pin.id, pin.image, asset.format);
+await writeFile(name, asset.bytes);
+```
+
+## Supported formats
+
+| Type | Formats |
+| --- | --- |
+| Image | `jpg` / `jpeg`, `png`, `webp` |
+| Video | `mp4`, `mov`, `m4v` |
+
+## Format detection
+
+Pinterest image URLs often have no extension, so Pinto never guesses from the URL alone. It checks, in order:
+
+1. The response `Content-Type` header.
+2. The file extension in the URL.
+3. The file's magic bytes (JPEG `FF D8 FF`, PNG header, WebP `RIFF…WEBP`, MP4 `ftyp`).
+
+```ts
+import { detectFormat, isSupportedImageFormat } from "@traceryn/pinto";
+
+detectFormat(url, "image/jpeg"); // "jpg"
+isSupportedImageFormat("webp");  // true
+```

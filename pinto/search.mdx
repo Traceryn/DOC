@@ -1,0 +1,45 @@
+---
+title: "Search"
+description: "Search Pinterest pins, boards, users, and videos with Pinto, with pagination and streaming."
+---
+
+Search returns a real paginated feed, unlike board and user widgets, so it supports cursors and streaming.
+
+## Search pins
+
+```ts
+const pins = await pinto.searchPins("cats", { pageSize: 25 });
+```
+
+## Scoped search
+
+Set `scope` to `pins` (default), `boards`, `users`, or `videos`.
+
+```ts
+const boards = await pinto.search("home decor", { scope: "boards" });
+const users = await pinto.search("design", { scope: "users" });
+const videos = await pinto.search("recipe", { scope: "videos" });
+```
+
+## Paginate manually
+
+Pass the `cursor` from the previous page.
+
+```ts
+const page2 = await pinto.search("cats", {
+  pageSize: 25,
+  cursor: pins.cursor,
+});
+```
+
+## Stream every result
+
+`searchAll` is an async generator that walks every page for you.
+
+```ts
+for await (const pin of pinto.searchAll("cats", "pins", 25)) {
+  console.log(pin.id, pin.image);
+}
+```
+
+`pageSize` defaults to `25` and accepts up to `100`. See [Configuration](/pinto/configuration).

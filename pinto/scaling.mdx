@@ -1,0 +1,54 @@
+---
+title: "Scaling with the gateway"
+sidebarTitle: "Scaling"
+description: "Serve high traffic with Pinto's Gateway, SessionPool, CacheStore, and GlobalRateLimiter."
+---
+
+For high traffic, don't point every request at Pinterest directly. Wrap reads in a `Gateway`, which adds four things on top of a plain client:
+
+- **SessionPool:** N sessions with round-robin, least-loaded checkout and automatic cooldown when a slot is rate-limited or blocked.
+- **CacheStore:** repeat reads are served from cache instead of being re-fetched.
+- **GlobalRateLimiter:** caps per-host throughput across every slot.
+- **Request coalescing:** N parallel identical reads trigger exactly one upstream fetch.
+
+## Create a gateway
+
+```ts
+import {
+  createGateway,
+  createMemoryCache,
+  GlobalRateLimiter,
+} from "@traceryn/pinto";
+
+const gateway = createGateway({
+  pool: { size: 8 },                                   // 8 pooled sessions
+  cache: createMemoryCache(),                          // swap for Redis in prod
+  limiter: new GlobalRateLimiter({ maxPerSecond: 8 }), // cap egress
+});
+
+const pin = await gateway.getPin("https://pin.it/67v3VVvF2");
+
+gateway.stats();    // { hits, misses, coalesced, failures }
+gateway.poolSize(); // 8
+```
+
+## Seed the session pool
+
+Seed the pool with your own accounts.
+
+```ts
+import { SessionPool } from "@traceryn/pinto";
+
+const pool = new SessionPool({
+  size: 4,
+  seeds: [myCookieHeader1, myCookieHeader2 /* ... */],
+});
+```
+
+<Warning>
+  Never seed the pool with end-user cookies.
+</Warning>
+
+## Share state across processes
+
+The in-memory cache and limiter are per-process. To share state across processes or regions, implement the `CacheStore` interface with Redis and inject it with `createGateway({ cache })`.

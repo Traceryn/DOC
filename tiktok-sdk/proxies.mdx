@@ -1,0 +1,37 @@
+---
+title: "IP throttling and proxies"
+sidebarTitle: "Proxies"
+description: "Avoid TikTok IP rate limits by routing TikTok SDK requests through rotating proxies."
+---
+
+TikTok rate-limits endpoints based on IP. If a request returns an empty response or gets throttled after heavy use, switch IP with a proxy.
+
+## Configure proxies
+
+Pass proxies when you create the client:
+
+```ts
+const client = new TikTokClient({
+  proxy: ['http://user:pass@host:port', 'http://proxy2:port'],
+  proxyRotation: 'round-robin', // or 'random', 'lowest-failures'
+});
+```
+
+Or add them at runtime and check their usage:
+
+```js
+client.addProxies(['http://user:pass@host:port', 'http://proxy2:port']);
+console.log(client.getProxyStats());
+```
+
+The SDK automatically rotates to the next healthy proxy when one fails.
+
+The example scripts accept a `--proxy` flag:
+
+```bash
+node docs/examples/searchUsers.cjs --session --proxy=http://user:pass@host:port
+```
+
+<Tip>
+  Free public proxies are often blocked by TikTok. Residential or paid proxies are the most reliable for high-volume use.
+</Tip>

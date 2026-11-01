@@ -1,0 +1,77 @@
+---
+title: "Reading pins"
+sidebarTitle: "Pins"
+description: "Fetch a Pinterest pin with Pinto from a URL, short link, path, or pin ID."
+---
+
+`getPin` accepts almost any Pinterest reference:
+
+- a full URL
+- a short link (`pin.it/...`)
+- a `/pin/<id>/` path
+- a regional host (`br.pinterest.com/...`)
+- a bare pin ID
+
+```ts
+const pin = await pinto.getPin(
+  "https://www.pinterest.com/pin/1060738518503398158/",
+);
+```
+
+## Pin fields
+
+<ResponseField name="id" type="string">
+  Pin ID, for example `"1060738518503398158"`.
+</ResponseField>
+
+<ResponseField name="title" type="string">
+  Pin title.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Pin description.
+</ResponseField>
+
+<ResponseField name="image" type="string">
+  Highest-resolution image URL.
+</ResponseField>
+
+<ResponseField name="images" type="{ url, width?, height? }[]">
+  All image variants, sorted largest first.
+</ResponseField>
+
+<ResponseField name="isVideo" type="boolean">
+  `true` for video and story pins.
+</ResponseField>
+
+<ResponseField name="video" type="string">
+  Best `.mp4` URL. Empty for plain image pins.
+</ResponseField>
+
+<ResponseField name="link" type="string">
+  Outbound link, if the pinner attached one.
+</ResponseField>
+
+<ResponseField name="domain" type="string">
+  Source domain, if any.
+</ResponseField>
+
+<ResponseField name="altText" type="string">
+  SEO or auto-generated alt text, if present.
+</ResponseField>
+
+<ResponseField name="createdAt" type="number">
+  Creation time in epoch milliseconds, if present.
+</ResponseField>
+
+<ResponseField name="pinner" type="{ id?, username?, fullName?, image? }">
+  The user who saved the pin.
+</ResponseField>
+
+<ResponseField name="board" type="{ id?, name?, url? }">
+  The board the pin belongs to.
+</ResponseField>
+
+A deleted or unknown pin throws `NotFoundError`. See [Error handling](/pinto/errors).
+
+To download the pin's image or video, see [Downloading media](/pinto/media).

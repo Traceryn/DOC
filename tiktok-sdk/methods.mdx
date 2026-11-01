@@ -1,0 +1,90 @@
+---
+title: "Methods"
+description: "Reference for every method on the TikTokClient in @traceryn/tiktok-sdk."
+---
+
+All data methods are async and return structured objects. Sample responses are in the repository's [`docs/responses`](https://github.com/Traceryn/tiktok-sdk/tree/master/docs/responses) directory.
+
+## Videos
+
+| Method | Description |
+| --- | --- |
+| `getVideo(url)` | Get video data from a TikTok link. |
+| `getTrendingVideos()` | Get the current trending videos. |
+| `getUserLikedVideos(username)` | Get videos a user liked. |
+
+```ts
+const video = await client.getVideo('https://www.tiktok.com/@user/video/1234567890');
+console.log(video.title);
+
+const trending = await client.getTrendingVideos();
+console.log(trending.videos.length);
+```
+
+## Users
+
+| Method | Description |
+| --- | --- |
+| `getUser(usernameOrUrl)` | Get user profile data from a username or profile link. |
+| `searchUsers(query)` | Search for TikTok users by keyword. Requires a [Playwright session](/tiktok-sdk/playwright-sessions) from datacenter IPs. |
+
+```ts
+const user = await client.getUser('tiktok');
+console.log(user.nickname);
+
+const search = await client.searchUsers('tiktok');
+console.log(search.users.length);
+```
+
+## Comments
+
+| Method | Description |
+| --- | --- |
+| `getComments(videoUrl)` | Get comments from a video or post. |
+
+```ts
+const comments = await client.getComments('https://www.tiktok.com/@user/video/1234567890');
+console.log(comments.comments.length);
+```
+
+## Hashtags
+
+| Method | Description |
+| --- | --- |
+| `getHashtag(name)` | Get hashtag stats. |
+
+```ts
+const hashtag = await client.getHashtag('fyp');
+console.log(hashtag.stats.videoCount);
+```
+
+## Sounds
+
+| Method | Description |
+| --- | --- |
+| `getSound(musicId)` | Get sound info. Requires a Playwright session from datacenter IPs. |
+| `getSoundVideos(musicId)` | Get videos using a sound. Requires a Playwright session from datacenter IPs. |
+
+## Playlists
+
+| Method | Description |
+| --- | --- |
+| `getUserPlaylists(username)` | Get playlists for a user. |
+| `getPlaylist(mixId)` | Get one playlist. |
+| `getPlaylistVideos(mixId)` | Get videos inside a playlist. |
+
+## Proxies
+
+| Method | Description |
+| --- | --- |
+| `addProxies(proxies)` | Add your own proxies. |
+| `getProxyStats()` | Check proxy usage. |
+
+See [Proxies](/tiktok-sdk/proxies).
+
+## Cache
+
+| Method | Description |
+| --- | --- |
+| `invalidateCache(url)` | Clear one cached video. |
+| `clearCache()` | Clear all cached video data. |

@@ -1,0 +1,55 @@
+---
+title: "Playwright sessions"
+description: "Use a Playwright browser session to reach TikTok endpoints that are blocked from datacenter IPs."
+---
+
+Some endpoints are blocked by Akamai WAF when called from datacenter IPs:
+
+- `searchUsers`
+- `getSound`
+- `getSoundVideos`
+
+A `PlaywrightSession` runs requests through a real browser session, which bypasses the WAF.
+
+## Set up Playwright
+
+```bash
+npm install playwright
+npx playwright install chromium
+```
+
+## Use a session
+
+Create the session, call `init()`, pass it to the client, and close it when you're done.
+
+```js
+const { TikTokClient, PlaywrightSession } = require('@traceryn/tiktok-sdk');
+
+async function main() {
+  const useSession = process.argv.includes('--session');
+  let session;
+
+  if (useSession) {
+    session = new PlaywrightSession({ headless: true });
+    await session.init();
+  }
+
+  const client = new TikTokClient({ session });
+  const trending = await client.getTrendingVideos();
+
+  console.log(trending.videos.length);
+
+  if (session) await session.close();
+}
+
+main().catch((err) => {
+  console.error('Error:', err.message);
+  process.exit(1);
+});
+```
+
+The example scripts in the repository accept a `--session` flag to enable this path:
+
+```bash
+node docs/examples/getComments.cjs --session
+```

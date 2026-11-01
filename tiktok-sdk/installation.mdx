@@ -1,0 +1,105 @@
+---
+title: "Install the TikTok SDK"
+sidebarTitle: "Installation"
+description: "Install @traceryn/tiktok-sdk, create a client, and fetch your first TikTok video."
+---
+
+## Requirements
+
+- Node.js 18 or later
+
+## Install
+
+<Tabs>
+  <Tab title="npm">
+    ```bash
+    npm install @traceryn/tiktok-sdk
+    ```
+  </Tab>
+  <Tab title="yarn">
+    ```bash
+    yarn add @traceryn/tiktok-sdk
+    ```
+  </Tab>
+  <Tab title="From GitHub">
+    ```bash
+    npm install git+https://github.com/traceryn/tiktok-sdk.git
+    # or
+    yarn add git+https://github.com/traceryn/tiktok-sdk.git
+    ```
+  </Tab>
+</Tabs>
+
+### Optional: Playwright
+
+Playwright is only needed for browser-backed session requests. See [Playwright sessions](/tiktok-sdk/playwright-sessions).
+
+```bash
+npm install playwright
+npx playwright install chromium
+```
+
+<Note>
+  The `playwright` package does not ship a browser by default. You must download a browser binary with `npx playwright install chromium`.
+</Note>
+
+## Create a client
+
+<CodeGroup>
+
+```ts ESM
+import { TikTokClient } from '@traceryn/tiktok-sdk';
+
+const client = new TikTokClient();
+```
+
+```js CommonJS
+const { TikTokClient } = require('@traceryn/tiktok-sdk');
+
+const client = new TikTokClient();
+```
+
+</CodeGroup>
+
+## Make your first request
+
+```ts
+import { TikTokClient } from '@traceryn/tiktok-sdk';
+
+const client = new TikTokClient();
+
+const video = await client.getVideo('https://www.tiktok.com/@user/video/1234567890');
+console.log(video.title);
+```
+
+A few more examples:
+
+```ts
+const user = await client.getUser('tiktok');
+console.log(user.nickname);
+
+const comments = await client.getComments('https://www.tiktok.com/@user/video/1234567890');
+console.log(comments.comments.length);
+
+const hashtag = await client.getHashtag('fyp');
+console.log(hashtag.stats.videoCount);
+
+const trending = await client.getTrendingVideos();
+console.log(trending.videos.length);
+```
+
+<Tip>
+  Runnable example scripts live in the repository's [`docs/examples`](https://github.com/Traceryn/tiktok-sdk/tree/master/docs/examples) directory, and sample response data is in [`docs/responses`](https://github.com/Traceryn/tiktok-sdk/tree/master/docs/responses).
+</Tip>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Methods" icon="list" href="/tiktok-sdk/methods">
+    Every method the client exposes.
+  </Card>
+
+  <Card title="Configuration" icon="sliders" href="/tiktok-sdk/configuration">
+    Timeouts, retries, rate limits, and caching.
+  </Card>
+</CardGroup>

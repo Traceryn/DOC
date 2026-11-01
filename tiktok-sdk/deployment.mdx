@@ -1,0 +1,17 @@
+---
+title: "Deploy the TikTok SDK"
+sidebarTitle: "Deployment"
+description: "Choose a hosting environment where the TikTok SDK runs reliably."
+---
+
+Run the SDK on a VPS or another long-running server.
+
+<Warning>
+  The SDK runs into IP restrictions and blocks on most serverless hosts, so only a few platforms work reliably.
+</Warning>
+
+- **Vercel:** a bad fit.
+- **Render:** only works if you run the SDK in a service that stays up as a real web process.
+- **VPS or dedicated server:** recommended.
+
+If you hit throttling in production, add [proxies](/tiktok-sdk/proxies). For endpoints blocked from datacenter IPs, use a [Playwright session](/tiktok-sdk/playwright-sessions).

@@ -1,0 +1,20 @@
+---
+title: "Proxies and custom fetch"
+sidebarTitle: "Proxies"
+description: "Route a Pinto client through your own proxy by injecting a custom fetch."
+---
+
+Route a client through your own egress IP by injecting a `fetch`:
+
+```ts
+import { createPinto } from "@traceryn/pinto";
+import { ProxyAgent, fetch as undiciFetch } from "undici";
+
+const agent = new ProxyAgent("http://user:pass@proxy-host:8080");
+
+const pinto = createPinto({
+  fetch: (url, init) => undiciFetch(url, { ...init, dispatcher: agent }),
+});
+```
+
+[Media downloads](/pinto/media) use the same injected `fetch`, so the whole client egresses from one identity.

@@ -1,0 +1,17 @@
+---
+title: "Device fingerprinting"
+sidebarTitle: "Fingerprinting"
+description: "How Pinto gives every session a stable, distinct browser identity."
+---
+
+Every Pinto session is fingerprinted as a real, distinct device. On first use, Pinto generates a stable browser profile and stores it on the session. A given client always sends the same identity, but different clients look like different devices.
+
+Each profile includes:
+
+- a `User-Agent` (Chrome, Firefox, Edge, Safari, or Opera on Windows, macOS, Linux, Android, or iOS)
+- a matching `Accept-Language`
+- consistent `sec-ch-ua`, `sec-ch-ua-mobile`, and `sec-ch-ua-platform` headers
+
+This lets many anonymous readers avoid tripping a single global fingerprint.
+
+To pin a session to one egress IP, inject a custom `fetch`. See [Proxies and custom fetch](/pinto/proxies).

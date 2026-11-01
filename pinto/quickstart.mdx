@@ -1,0 +1,69 @@
+---
+title: "Pinto quickstart"
+sidebarTitle: "Quickstart"
+description: "Install @traceryn/pinto and read a pin, a profile, and a board."
+---
+
+## Requirements
+
+- Node.js 18 or later
+
+## Install
+
+<CodeGroup>
+
+```bash npm
+npm install @traceryn/pinto
+```
+
+```bash yarn
+yarn add @traceryn/pinto
+```
+
+</CodeGroup>
+
+## Read your first data
+
+```ts
+import { createPinto } from "@traceryn/pinto";
+
+const pinto = createPinto();
+
+// Read a pin: accepts a full URL, a /pin/<id>/ path, a short link, or a bare ID.
+const pin = await pinto.getPin("https://pin.it/67v3VVvF2");
+console.log(pin.id, pin.image, pin.isVideo ? "video" : "image");
+
+// Read a profile.
+const user = await pinto.getUser("https://www.pinterest.com/Corex2410/");
+console.log(user.username, user.followers);
+
+// Read a board and its pins.
+const board = await pinto.getBoard(
+  "https://www.pinterest.com/Corex2410/black-white-symbols/",
+);
+const pins = await pinto.boardPins(board.url, { pageSize: 50 });
+console.log(board.name, pins.results.length, pins.hasMore);
+```
+
+## Run the example
+
+The repository includes a full example in [`Example/example.ts`](https://github.com/Traceryn/Pinto/blob/master/Example/example.ts).
+
+```bash
+git clone https://github.com/Traceryn/Pinto.git
+cd Pinto
+npm install
+npm run example
+```
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Reading pins" icon="thumbtack" href="/pinto/pins">
+    Every field on a pin.
+  </Card>
+
+  <Card title="Search" icon="magnifying-glass" href="/pinto/search">
+    Paginated search across pins, boards, users, and videos.
+  </Card>
+</CardGroup>

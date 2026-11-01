@@ -1,0 +1,33 @@
+---
+title: "Development and testing"
+sidebarTitle: "Development"
+description: "Run tests, type checks, and linting when contributing to the TikTok SDK."
+---
+
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/Traceryn/tiktok-sdk.git
+cd tiktok-sdk
+npm install
+```
+
+## Run checks
+
+```bash
+npm test          # Vitest suite
+npm run typecheck # TypeScript type check
+npm run lint      # Type check and ESLint
+```
+
+Most tests are local, but some checks depend on TikTok behavior and can shift when the site changes. If you're only testing one area, run the smallest check that covers your change.
+
+## Run the examples
+
+```bash
+npm run example
+```
+
+## Contributing
+
+See [CONTRIBUTING.md](https://github.com/Traceryn/tiktok-sdk/blob/master/CONTRIBUTING.md) to contribute and [SECURITY.md](https://github.com/Traceryn/tiktok-sdk/blob/master/SECURITY.md) to report security issues.

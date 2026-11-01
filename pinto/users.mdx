@@ -1,0 +1,53 @@
+---
+title: "Reading users"
+sidebarTitle: "Users"
+description: "Fetch a Pinterest profile and a user's recent pins with Pinto."
+---
+
+```ts
+const user = await pinto.getUser("https://www.pinterest.com/Corex2410/");
+```
+
+## User fields
+
+<ResponseField name="username" type="string">
+  Username, for example `"Corex2410"`.
+</ResponseField>
+
+<ResponseField name="id" type="string">
+  Internal numeric ID.
+</ResponseField>
+
+<ResponseField name="fullName" type="string">
+  Display name.
+</ResponseField>
+
+<ResponseField name="bio" type="string">
+  Profile "about" text.
+</ResponseField>
+
+<ResponseField name="followers" type="number">
+  Follower count.
+</ResponseField>
+
+<ResponseField name="pinsCount" type="number">
+  Number of pins.
+</ResponseField>
+
+<ResponseField name="image" type="string">
+  Avatar URL.
+</ResponseField>
+
+## A user's pins
+
+`userPins` returns a user's most recent pins.
+
+```ts
+const pins = await pinto.userPins("Corex2410", { pageSize: 25 });
+pins.results; // Pin[]
+pins.hasMore; // always false
+```
+
+<Note>
+  User feeds come from Pinterest's widget endpoints, which don't paginate, so `hasMore` is always `false`.
+</Note>

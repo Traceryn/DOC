@@ -1,0 +1,62 @@
+---
+title: "Configure the client"
+sidebarTitle: "Configuration"
+description: "Set timeouts, retries, rate limits, concurrency, caching, and proxies on the TikTok SDK client."
+---
+
+Pass options to the `TikTokClient` constructor.
+
+```ts
+import { TikTokClient } from '@traceryn/tiktok-sdk';
+
+const client = new TikTokClient({
+  timeout: 15000,   // keep requests from hanging too long
+  maxRetries: 2,    // retry a couple of times if TikTok flakes out
+  rateLimit: 3,     // slow it down a bit
+  concurrency: 1,   // keep it simple and steady
+  cacheTTL: 60_000, // cache results for a minute
+});
+```
+
+## Options
+
+<ResponseField name="timeout" type="number">
+  Request timeout in milliseconds, for example `5000`, `15000`, or `30000`.
+</ResponseField>
+
+<ResponseField name="maxRetries" type="number">
+  Number of retries for a failed request, for example `0`, `2`, or `5`.
+</ResponseField>
+
+<ResponseField name="rateLimit" type="number">
+  Rate limit for outgoing requests, for example `1`, `3`, or `10`.
+</ResponseField>
+
+<ResponseField name="concurrency" type="number">
+  Number of concurrent requests, for example `1`, `2`, or `4`.
+</ResponseField>
+
+<ResponseField name="cacheTTL" type="number">
+  How long to cache results, in milliseconds, for example `30000`, `60000`, or `300000`.
+</ResponseField>
+
+<ResponseField name="proxy" type="string | string[]">
+  A single proxy URL or an array of them, like `"http://user:pass@host:port"`. See [Proxies](/tiktok-sdk/proxies).
+</ResponseField>
+
+<ResponseField name="proxyRotation" type="string">
+  Proxy rotation strategy: `"round-robin"`, `"random"`, or `"lowest-failures"`.
+</ResponseField>
+
+<ResponseField name="session" type="PlaywrightSession">
+  A Playwright browser session for endpoints that need one. See [Playwright sessions](/tiktok-sdk/playwright-sessions).
+</ResponseField>
+
+## Cache
+
+Video data is cached for `cacheTTL` milliseconds. Clear it manually when needed:
+
+```ts
+client.invalidateCache('https://www.tiktok.com/@user/video/1234567890'); // one video
+client.clearCache(); // everything
+```

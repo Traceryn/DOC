@@ -1,0 +1,48 @@
+---
+title: "Reading boards"
+sidebarTitle: "Boards"
+description: "Fetch a Pinterest board and the pins on it with Pinto."
+---
+
+```ts
+const board = await pinto.getBoard(
+  "https://www.pinterest.com/Corex2410/black-white-symbols/",
+);
+```
+
+## Board fields
+
+<ResponseField name="id" type="string">
+  Internal ID.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  Board name, for example `"black-white-symbols"`.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Board description.
+</ResponseField>
+
+<ResponseField name="url" type="string">
+  Canonical `https://www.pinterest.com/...` URL.
+</ResponseField>
+
+<ResponseField name="pinsCount" type="number">
+  Number of pins.
+</ResponseField>
+
+<ResponseField name="followers" type="number">
+  Follower count.
+</ResponseField>
+
+<ResponseField name="image" type="string">
+  Board thumbnail.
+</ResponseField>
+
+## Pins on a board
+
+```ts
+const pins = await pinto.boardPins(board.url, { pageSize: 50 });
+console.log(pins.results.length, pins.hasMore);
+```

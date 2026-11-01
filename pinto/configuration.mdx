@@ -1,0 +1,21 @@
+---
+title: "Configuration"
+description: "Default page sizes, timeouts, retries, and cache settings in Pinto."
+---
+
+| Constant | Default | Meaning |
+| --- | --- | --- |
+| `DEFAULT_PAGE_SIZE` | `25` | Default `pageSize` for feeds |
+| `MAX_PAGE_SIZE` | `100` | Largest `pageSize` a single request accepts |
+| `DEFAULT_TIMEOUT_MS` | `20000` | Per-request timeout |
+| `DEFAULT_TRIES` | `3` | Retries on transient failures |
+| `MIN_REQUEST_GAP_MS` | `150` | Minimum gap between requests (anti-detection) |
+| `CACHE_TTL_MS` | `60000` | Default gateway cache TTL |
+
+## createPinto options
+
+| Option | Description |
+| --- | --- |
+| `session` | Session state to use. See [Authentication](/pinto/authentication). |
+| `saveSession` | Callback invoked after cookies change. |
+| `fetch` | Custom `fetch` implementation. See [Proxies](/pinto/proxies). |
