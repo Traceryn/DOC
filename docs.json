@@ -1,13 +1,13 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
+  "theme": "luma",
   "name": "Traceryn",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#18CDB1",
+    "light": "#3DE0C6",
+    "dark": "#0E9F89"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "https://raw.githubusercontent.com/Traceryn/tiktok-sdk/master/media/Traceryn.png",
   "navigation": {
     "tabs": [
       {
@@ -18,9 +18,11 @@
             "pages": [
               "index",
               "projects"
-            ]
+            ],
+            "icon": "building"
           }
-        ]
+        ],
+        "icon": "house"
       },
       {
         "tab": "TikTok SDK",
@@ -30,7 +32,8 @@
             "pages": [
               "tiktok-sdk/overview",
               "tiktok-sdk/installation"
-            ]
+            ],
+            "icon": "rocket"
           },
           {
             "group": "Guides",
@@ -39,16 +42,19 @@
               "tiktok-sdk/playwright-sessions",
               "tiktok-sdk/proxies",
               "tiktok-sdk/deployment"
-            ]
+            ],
+            "icon": "book-open"
           },
           {
             "group": "Reference",
             "pages": [
               "tiktok-sdk/methods",
               "tiktok-sdk/development"
-            ]
+            ],
+            "icon": "code"
           }
-        ]
+        ],
+        "icon": "tiktok"
       },
       {
         "tab": "Pinto",
@@ -58,7 +64,8 @@
             "pages": [
               "pinto/overview",
               "pinto/quickstart"
-            ]
+            ],
+            "icon": "rocket"
           },
           {
             "group": "Reading data",
@@ -68,14 +75,16 @@
               "pinto/boards",
               "pinto/search",
               "pinto/media"
-            ]
+            ],
+            "icon": "database"
           },
           {
             "group": "Sessions",
             "pages": [
               "pinto/authentication",
               "pinto/fingerprinting"
-            ]
+            ],
+            "icon": "key"
           },
           {
             "group": "Production",
@@ -84,21 +93,24 @@
               "pinto/proxies",
               "pinto/errors",
               "pinto/configuration"
-            ]
+            ],
+            "icon": "server"
           }
-        ]
+        ],
+        "icon": "pinterest"
       }
     ]
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "https://raw.githubusercontent.com/Traceryn/.github/main/profile/Tracerynorg.png",
+    "dark": "https://raw.githubusercontent.com/Traceryn/.github/main/profile/Tracerynorg.png"
   },
   "navbar": {
     "links": [
       {
-        "href": "https://github.com/Traceryn",
-        "label": "GitHub"
+        "icon": "heart",
+        "href": "https://github.com/sponsors/Corex24",
+        "label": "Sponsor"
       }
     ],
     "primary": {
@@ -112,15 +124,18 @@
       "view",
       "chatgpt",
       "claude",
-      "perplexity",
       "mcp",
+      "add-mcp",
       "cursor",
-      "vscode"
+      "perplexity"
     ]
   },
   "footer": {
     "socials": {
       "github": "https://github.com/Traceryn"
     }
+  },
+  "fonts": {
+    "family": "Geist"
   }
 }
