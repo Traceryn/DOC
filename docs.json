@@ -3,23 +3,23 @@
   "theme": "luma",
   "name": "Traceryn",
   "colors": {
-    "primary": "#18CDB1",
-    "light": "#3DE0C6",
-    "dark": "#0E9F89"
+    "primary": "#1E3A8A",
+    "light": "#3B82F6",
+    "dark": "#1E3A8A"
   },
-  "favicon": "https://raw.githubusercontent.com/Traceryn/tiktok-sdk/master/media/Traceryn.png",
+  "favicon": "https://raw.githubusercontent.com/Traceryn/.github/main/profile/Tracerynorg.png",
   "navigation": {
     "tabs": [
       {
         "tab": "Home",
         "groups": [
           {
-            "group": "Traceryn",
+            "group": "Start here",
             "pages": [
               "index",
               "projects"
             ],
-            "icon": "building"
+            "icon": "compass"
           }
         ],
         "icon": "house"
@@ -31,6 +31,7 @@
             "group": "Get started",
             "pages": [
               "tiktok-sdk/overview",
+              "tiktok-sdk/how-it-works",
               "tiktok-sdk/installation"
             ],
             "icon": "rocket"
@@ -63,6 +64,7 @@
             "group": "Get started",
             "pages": [
               "pinto/overview",
+              "pinto/how-it-works",
               "pinto/quickstart"
             ],
             "icon": "rocket"
@@ -103,7 +105,8 @@
   },
   "logo": {
     "light": "https://raw.githubusercontent.com/Traceryn/.github/main/profile/Tracerynorg.png",
-    "dark": "https://raw.githubusercontent.com/Traceryn/.github/main/profile/Tracerynorg.png"
+    "dark": "https://raw.githubusercontent.com/Traceryn/.github/main/profile/Tracerynorg.png",
+    "href": "/"
   },
   "navbar": {
     "links": [
@@ -137,5 +140,34 @@
   },
   "fonts": {
     "family": "Geist"
+  },
+  "description": "Documentation for Traceryn, an open-source organization building developer-first TypeScript tools and SDKs, including TikTok SDK, Pinto, and more projects to come.",
+  "appearance": {
+    "default": "light"
+  },
+  "background": {
+    "color": {
+      "light": "#FFFFFF",
+      "dark": "#000000"
+    }
+  },
+  "seo": {
+    "metatags": {
+      "description": "Documentation for Traceryn, an open-source organization building developer-first TypeScript tools and SDKs, including TikTok SDK, Pinto, and more projects to come.",
+      "keywords": "Traceryn, open source, TypeScript, Node.js, SDK, TikTok SDK, TikTok API, Pinto, Pinterest API, developer tools, web data",
+      "author": "Corex Anthony",
+      "theme-color": "#1E3A8A",
+      "og:type": "website",
+      "og:site_name": "Traceryn Docs",
+      "og:title": "Traceryn Docs | Open-source developer tools and SDKs",
+      "og:description": "Guides and API references for every Traceryn project: TikTok SDK, Pinto, and the tools still to come.",
+      "og:image": "https://raw.githubusercontent.com/Traceryn/.github/main/profile/Tracerynorg.png",
+      "og:locale": "en_US",
+      "twitter:card": "summary_large_image",
+      "twitter:title": "Traceryn Docs | Open-source developer tools and SDKs",
+      "twitter:description": "Guides and API references for every Traceryn project: TikTok SDK, Pinto, and the tools still to come.",
+      "twitter:image": "https://raw.githubusercontent.com/Traceryn/.github/main/profile/Tracerynorg.png"
+    },
+    "indexing": "navigable"
   }
 }

@@ -11,6 +11,11 @@ description: "A lightweight TikTok SDK for Node.js that fetches videos, users, c
 - The SDK talks to TikTok through web endpoints and structured responses.
 - [Playwright](/tiktok-sdk/playwright-sessions) is optional. It only helps when a browser-backed session makes sense.
 - This keeps setup light for normal use, so you don't need a full browser to start.
+- Every call passes through a request pipeline (cache, queue, rate limiter, circuit breaker, proxy rotation, and retries). A multi-strategy **ParserEngine** then extracts TikTok's embedded page data, and **X-Bogus** signing handles TikTok's web API.
+
+<Card title="How the TikTok SDK works" icon="gears" horizontal href="/tiktok-sdk/how-it-works">
+  A full walkthrough of the pipeline, parser, signing, proxies, and Playwright sessions.
+</Card>
 
 ## What you can fetch
 

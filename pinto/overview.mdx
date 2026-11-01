@@ -32,6 +32,14 @@ Pinto is an unofficial TypeScript/JavaScript API for reading public Pinterest da
 
 Pinto has a fully typed public surface and ships both ESM and CJS builds.
 
+## Under the hood
+
+Pinto is built around **Pinth**, its protocol layer. Pinth knows Pinterest's URLs, widget and resource endpoints, browser headers, device profiles, and response formats. The rest of Pinto sits on top of it: a Client for throttled, retried requests, Vault for session cookies, Harvest for turning raw JSON into typed objects, and Scale for running many sessions.
+
+<Card title="How Pinto works" icon="gears" horizontal href="/pinto/how-it-works">
+  A full walkthrough of Pinth and every layer, and what happens on each request.
+</Card>
+
 ## Disclaimer
 
 Pinto is not affiliated, associated, authorized, endorsed by, or in any way officially connected with Pinterest or any of its subsidiaries or affiliates. "Pinterest" and related names, marks, emblems, and images are registered trademarks of their respective holders.
