@@ -123,6 +123,38 @@
   },
   "contextual": {
     "options": [
+      {
+        "title": "Ask AI about Traceryn",
+        "description": "Ask ChatGPT anything about the Traceryn org, its repos, and this page",
+        "icon": "sparkles",
+        "href": {
+          "base": "https://chatgpt.com/",
+          "query": [
+            {
+              "key": "hints",
+              "value": "search"
+            },
+            {
+              "key": "q",
+              "value": "You are an expert on Traceryn, an open-source org building TypeScript tools and SDKs (GitHub: https://github.com/Traceryn, docs: https://traceryn.online). Use its GitHub repos and docs to answer my questions. I'm reading https://traceryn.online$path. My question: "
+            }
+          ]
+        }
+      },
+      {
+        "title": "Ask Claude about Traceryn",
+        "description": "Ask Claude anything about the Traceryn org, its repos, and this page",
+        "icon": "message-circle",
+        "href": {
+          "base": "https://claude.ai/new",
+          "query": [
+            {
+              "key": "q",
+              "value": "You are an expert on Traceryn, an open-source org building TypeScript tools and SDKs (GitHub: https://github.com/Traceryn, docs: https://traceryn.online). Use its GitHub repos and docs to answer my questions. I'm reading https://traceryn.online$path. My question: "
+            }
+          ]
+        }
+      },
       "copy",
       "view",
       "chatgpt",

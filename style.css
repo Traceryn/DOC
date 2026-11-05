@@ -4,6 +4,11 @@ footer a[href*="mintlify.com"],
   display: none !important;
 }
 
+img.nav-logo {
+  height: 36px !important;
+  width: auto !important;
+}
+
 .traceryn-copyright {
   width: 100%;
   margin-top: 1rem;
