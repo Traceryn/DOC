@@ -1,0 +1,17 @@
+User-agent: Googlebot
+User-agent: Bingbot
+Disallow: /llms.txt
+Disallow: /llms-full.txt
+Disallow: /.well-known/llms.txt
+Disallow: /.well-known/llms-full.txt
+Disallow: /cdn-cgi/
+Allow: /_next/image
+Disallow: /_next/
+
+User-agent: *
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+Disallow: /cdn-cgi/
+Allow: /_next/image
+Disallow: /_next/
+
+Sitemap: https://traceryn.online/sitemap.xml
